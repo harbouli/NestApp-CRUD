@@ -10,6 +10,8 @@ import {
   Post,
   Body,
 } from '@nestjs/common';
+import { UsePipes } from '@nestjs/common/decorators';
+import { ValidationPipe } from '@nestjs/common/pipes';
 import { Request, Response } from 'express';
 import { createUserDto } from './dtos/CreateUser.dto';
 import { UserService } from './services/user/user.service';
@@ -43,6 +45,7 @@ export class UserController {
   }
 
   @Post('create')
+  @UsePipes(ValidationPipe)
   createUser(@Body() createUserDto: createUserDto) {
     console.log(createUserDto);
     this.userService.createUser(createUserDto);
